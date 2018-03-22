@@ -1,0 +1,279 @@
+﻿@*<form method="post" id="formulario" name="formulario" hidden>
+    Pon algo<br />
+    @*saludo <input type="text" name="saludo" id="saludo"  /><br />*@
+@*IDPaciente <input type="number" name="IDPaciente" id="IDPaciente" /><br />
+    Nombre <input type="text" name="Nombre" id="Nombre" /><br />
+    Apellido <input type="text" name="Apellido" id="Apellido" /><br />
+    Edad <input type="number" name="Edad" id="Edad" /><br />
+    Reloj <input type="number" name="Reloj" id="Reloj" /><br />
+    IDEnfermedad<input type="number" name="IDEnfermedad" id="IDEnfermedad" /><br />
+    Baja<input type="text" name="Baja" id="Baja" /><br />
+    Eliminado <input type="text" name="Eliminado" id="Eliminado" /><br />
+    <button type="submit" id="boton" name="boton">enviar</button>*@
+@*</form>*@*
+
+
+@*
+        <style type="text/css">
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+            .tg td {
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                padding: 12px 14px;
+                border-style: solid;
+                border-width: 1px;
+                overflow: hidden;
+                word-break: normal;
+            }
+
+            .tg th {
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: normal;
+                padding: 12px 14px;
+                border-style: solid;
+                border-width: 1px;
+                overflow: hidden;
+                word-break: normal;
+            }
+
+            .tg .tg-5y5n {
+                background-color: #ecf4ff
+            }
+
+            .tg .tg-o31z {
+                background-color: #d2d3d8;
+                vertical-align: top
+            }
+
+            .tg .tg-h5jk {
+                background-color: #d2d3d8
+            }
+
+            .tg .tg-yw4l {
+                vertical-align: top
+            }
+
+        media screen and (max-width: 767px) {
+            .tg
+
+        {
+            width: auto !important;
+        }
+
+        .tg col {
+            width: auto !important;
+        }
+
+        .tg-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        }
+    </style>
+
+
+
+    <div class="tg-wrap">
+        <div class="table-responsive">
+            <table class="table table-bordered" style="width:700px;height:900px">
+                <tr>
+                    <th class="tg-h5jk"></th>
+                    <th class="tg-h5jk"></th>
+                    <th class="tg-h5jk"></th>
+                    <th class="tg-yw4l" colspan="2">
+                        <p style="font-size:xx-large;color:blueviolet;">SCORE</p>
+                        <div id="score" style="font-size:xx-large;text-align:right;color:blueviolet;">0</div>
+                    </th>
+                    <th class="tg-o31z"></th>
+                    <th class="tg-o31z"></th>
+                    <th class="tg-yw4l">
+                        <div id="countdown1" align="center" style="font-size:xx-large;color:blueviolet;"></div>
+                    </th>
+                </tr>
+                <tr>
+                    <td class="tg-h5jk"></td>
+                    <td class="tg-5y5n" colspan="6" rowspan="6">
+                        <div class="container">
+                            <div class="row tablero" style="background-color:antiquewhite;height:500px;width:900px;" name="tablero">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-7" id="dinamico" style="z-index:3">
+
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div class="row CONTROLES">
+                                <div class="col-sm-12"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-o31z"></td>
+                </tr>
+                <tr>
+                    <td class="tg-h5jk"></td>
+                    <td class="tg-o31z"></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-yw4l"><input id="empezarpartida" class="btn btn-success btn-lg" type="button" value="START GAME" /></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-yw4l"> <input id="multijugador" class="btn .btn-primary btn-lg" type="button" value="MultiPlayer" /></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-yw4l"> <input id="resume" class="btn .btn-primary btn-lg" type="button" value="Resume" /></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-yw4l"><input id="ranking" class="btn .btn-primary btn-lg" type="button" value="Ranking" /></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z">mas1</td>
+                    <td class="tg-o31z">mas2</td>
+                    <td class="tg-o31z">mas3</td>
+                    <td class="tg-o31z">mas4</td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z" id="medicina1">
+                        <div id="draggable" class="ui-widget-content ui-draggable ui-draggable-handle" style="z-index: 4; position: relative;">
+                            <p>MEC</p>
+                        </div>
+                    </td>
+                    <td class="tg-o31z" id="medicina2">
+                        <div id="draggable2" class="ui-widget-content ui-draggable ui-draggable-handle" style="z-index: 4; position: relative;">
+                            <p>MEC</p>
+                        </div>
+                    </td>
+                    <td class="tg-o31z" id="medicina3">
+                        <div id="draggable3" class="ui-widget-content ui-draggable ui-draggable-handle" style="z-index: 4; position: relative;">
+                            <p>MEC</p>
+                        </div>
+                    </td>
+                    <td class="tg-o31z" id="medicina4">
+                        <div id="draggable4" class="ui-widget-content ui-draggable ui-draggable-handle" style="z-index: 4; position: relative;">
+                            <p>MEC</p>
+                        </div>
+                    </td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z" colspan="4">medicinas texto</td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                </tr>
+                <tr>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                    <td class="tg-o31z"></td>
+                </tr>
+            </table>
+        </div>
+    </div>*@
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<style>
+    .toggler {
+        width: 500px;
+        height: 200px;
+    }
+
+    #button {
+        padding: .5em 1em;
+        text-decoration: none;
+    }
+
+    #effect {
+        width: 240px;
+        height: auto;
+        padding: 0.4em;
+        position: relative;
+    }
+
+        #effect h3 {
+            margin: 0;
+            padding: 0.4em;
+            text-align: center;
+        }
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    // run the currently selected effect
+    function runEffect() {
+      // get effect type from
+      var selectedEffect = $( "#effectTypes" ).val();
+
+      // Most effect types need no options passed by default
+      var options = {};
+      // some effects have required parameters
+      if ( selectedEffect === "scale" ) {
+        options = { percent: 50 };
+      } else if ( selectedEffect === "size" ) {
+        options = { to: { width: 280, height: 500 } };
+      }
+
+      // Run the effect
+      $( "#effect" ).show( selectedEffect, options, 500, callback );
+    };
+
+    //callback function to bring a hidden box back
+    function callback() {
+      setTimeout(function() {
+        $( "#effect:visible" ).removeAttr( "style" ).fadeOut();
+      }, 3000 );
+    };
+
+    // Set effect from select menu value
+    $("#button").on( "click", function() {
+      runEffect();
+    });
+
+    $( "#effect" ).hide();
+  } );
+</script>
+
+<div class="toggler">
+    <div id="effect" class="ui-widget-content ui-corner-all">
+        <h3 class="ui-widget-header ui-corner-all">Ranking</h3>
+        <div>
+            @if (Model != null)
+            {
+                <ul>
+                    @foreach (var ape in Model)
+                    {
+                        <li><label>Nombre: </label>@ape.Nombre </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+
+<select name="effects" id="effectTypes">
+
+    <option value="bounce">Bounce</option>
+
+</select>
+
+<button id="button" class="ui-state-default ui-corner-all">Run Effect</button>*@

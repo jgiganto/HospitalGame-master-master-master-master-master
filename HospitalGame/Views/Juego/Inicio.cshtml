@@ -1,0 +1,617 @@
+﻿
+@model  String
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@*<link rel="stylesheet" href="/resources/demos/style.css">*@
+<style type="text/css">
+
+
+
+
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin: 0px auto;
+    }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 20px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 20px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+        }
+
+        .tg .tg-yw4l {
+            vertical-align: top
+        }
+
+        .tg .tg-rg0h {
+            font-size: 12px;
+            text-align: center;
+            vertical-align: top
+        }
+
+    media screen and (max-width: 767px) {
+        .tg
+
+    {
+        width: auto !important;
+    }
+
+    .tg col {
+        width: auto !important;
+    }
+
+    .tg-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: auto 0px;
+    }
+    }
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<style>
+
+
+    div[id^="draggable"] {
+        width: 40px;
+        height: 40px;
+        padding: 0.5em;
+        float: none;
+        margin: 10px 10px 10px 0;
+        background-color: lavenderblush;
+    }
+
+    div[id^="droppable"] {
+        width: 100px;
+        height: 100px;
+        padding: 0.5em;
+        float: left;
+        margin: 10px;
+        background-color: darkslateblue;
+    }
+</style>
+<style>
+
+
+    #tablero {
+        background-color: aliceblue;
+    }
+</style>
+<link href="~/Content/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<style>
+
+    .toggler {
+        width: auto;
+        height: auto;
+    }
+
+    #button {
+        padding: .5em 1em;
+        text-decoration: none;
+    }
+
+    #effect, #effectiniciosesion {
+        width: auto;
+        height: auto;
+        padding: 0.4em;
+        position: relative;
+    }
+
+        #effect h3 {
+            margin: 0;
+            padding: 0.4em;
+            text-align: center;
+        }
+
+        #effectiniciosesion h3 {
+            margin: 0;
+            padding: 0.4em;
+            text-align: center;
+        }
+</style>
+
+<script src="~/js/EnviarAsincrono.js"></script>
+<script src="~/js/arrastrar.js"></script>
+<script src="~/js/CuentaAtras.js"></script>
+<script src="~/js/Random.js"></script>
+<script src="~/js/ClickBoton.js"></script>
+<script src="~/js/GeneradorNombresDrop.js"></script>
+<script src="~/js/MostrarPacientes.js"></script>
+<script src="~/js/Score.js"></script>
+<script src="~/js/Medicinas.js"></script>
+<script>
+
+    //$("#formulario").submit(function () {
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: ('Inicio'),
+    //        data: $(this).serialize(),
+    //        success: function (data) {
+    //            //countdown('countdown1', 0, 5);
+    //            //sleep(1000);
+    //            $("#boton").click();
+    //        }
+    //    })
+    //    return false;
+    //});
+</script>
+<script>
+    $(function () {
+        arrastrar();
+    });
+</script>
+<script>
+    /* FUNCIONES A ORDENAR---a------------------------------------------------------
+     *
+     *  //FUNCIONES RANDOM
+     *
+     *  var i = Math.floor((Math.random() * 100) + 1);
+        var j = Math.floor((Math.random() * 10) + 1);
+        var k = Math.floor((Math.random() * 10) + 1);
+     *
+     function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds) {
+                    break;
+                }
+            }
+        }
+        --------------ESTO RELLENA LAS CAJAS DEL FORMULARIO Y PULSA ENVIAR
+                        $("#IDPaciente").val(i);
+                        $("#Nombre").val(i);
+                        $("#Apellido").val(i);
+                        $("#Edad").val(i);
+                        $("#Reloj").val(i);
+                        $("#IDEnfermedad").val(i);
+                        $("#Baja").val(i);
+                        $("#Eliminado").val(i);
+                        $("#boton").click();
+----------------------------------------------------------------------------------
+-------------------------LAS VARIABLES DEL FORMULARIO Y MAS-----------------------
+  var saludo; var IDPaciente; var Nombre; var Apellido; var Edad; var Reloj;
+  var IDEnfermedad; var Baja; var Eliminado;
+  -------------------------------------------------------------------------
+  -------------------------FUNCION CUENTA ATRAS----------------------------
+  function countdown(element, minutes, seconds) {
+            // Fetch the display element
+            var el = document.getElementById(element);
+
+            // Set the timer
+            var interval = setInterval(function () {
+                if (seconds == 0) {
+                    if (minutes == 0) {
+                        (el.innerHTML = "STOP!");//AQUI SE EJECUTA ALGO CUANDO FINALIZA LA CUENTA ATRAS
+                        clearInterval(interval);
+                        return;
+                    } else {
+                        minutes--;
+                        seconds = 60;
+                    }
+                }
+
+                if (minutes > 0) {
+                    var minute_text = minutes + (minutes > 1 ? ' minutes' : ' minute');
+                } else {
+                    var minute_text = '';
+                }
+
+                var second_text = seconds > 1 ? '' : '';
+                el.innerHTML = minute_text + ' ' + seconds + ' ' + second_text + '';
+                seconds--;
+            }, 1000);
+        }
+ --------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+     */
+</script>
+<script>
+    var medic1 = 3; var medic2 = 3; var medic3 = 3; var medic4 = 3; score = 0;
+    var minombre = "";
+    $(document).ready(function () {
+        var i;;
+        //setTimeout(clickbutton, 10);
+
+        //function clickbutton() {
+        //    // simulamos el click del mouse en el boton del formulario
+        //    $("#timer1").click(); $("#timer2").click(); $("#timer3").click();
+        //}
+        //clickbutton();
+        EnviarAsincrono();
+        var start1 = document.getElementById('timer1');
+        var start2 = document.getElementById('timer2');
+        var start3 = document.getElementById('timer3');
+        var parar = document.getElementById('detener');
+        var empezarpartida = document.getElementById('empezarpartida');
+        var mas1 = document.getElementById('mas1');
+        var mas2 = document.getElementById('mas2');
+        var mas3 = document.getElementById('mas3');
+        var mas4 = document.getElementById('mas4');
+
+
+        mas1.onclick = function () {
+            if (score >= 20) {
+                $("#score").html(RestaScore());
+                $("#med1").html(medic1 += 1);
+            }
+
+            if (medic1 <= 1) {
+                $("#medicina1").append(circuloam);
+            }
+        }
+        mas2.onclick = function () {
+            if (score >= 20) {
+                $("#score").html(RestaScore());
+                $("#med2").html(medic2 += 1);
+            }
+
+            if (medic2 <= 1) {
+                $("#medicina2").append(cuadradoam);
+            }
+        }
+        mas3.onclick = function () {
+            if (score >= 20) {
+                $("#score").html(RestaScore());
+                $("#med3").html(medic3 += 1);
+            }
+
+            if (medic3 <= 1) {
+                $("#medicina3").append(estrellaam);
+            }
+        }
+        mas4.onclick = function () {
+            if (score >= 20) {
+                $("#score").html(RestaScore());
+                $("#med4").html(medic4 += 1);
+            }
+
+            if (medic4 <= 1) {
+                $("#medicina4").append(trianguloam);
+            }
+        }
+        empezarpartida.onclick = function () {
+            $("#timer1").click();
+            $("#timer2").click();
+            score = 0;
+            $("#score").html("0");
+              medic1 = 3;   medic2 = 3;   medic3 = 3;   medic4 = 3;
+            $("#med1").html(3); $("#med2").html(3); $("#med3").html(3); $("#med4").html(3);
+            $("#empezarpartida").prop("disabled", true);//desactivo el botón durante la partida
+            $("#ranking").prop("disabled", true);
+            $("#inciosesion").prop("disabled", true);
+        }
+
+        start1.onclick = function () {
+            //i = Aleatorios(2);
+            new countdown('countdown1', 0, 60);
+            // $("#boton").click();
+        }
+
+        start2.onclick = function () {
+            i = Aleatorios(2);
+            new countdown('countdown2', 0, i);
+        }
+        start3.onclick = function () {
+            i = Aleatorios(10);
+            new countdown('countdown3', 0, i);
+        }
+        parar.onclick = function () {
+            clearInterval(interval1); clearInterval(interval2); clearInterval(interval3);
+        }
+
+        MostrarPacientes();
+        //popup ranking
+        $(function () {
+            // run the currently selected effect
+            function runEffect() {
+                // get effect type from
+                var selectedEffect = "bounce";      // $("#effectTypes").val();
+
+                // Most effect types need no options passed by default
+                var options = {};
+                // some effects have required parameters
+                if (selectedEffect === "scale") {
+                    options = { percent: 50 };
+                } else if (selectedEffect === "size") {
+                    options = { to: { width: 280, height: 185 } };
+                }
+
+                // Run the effect
+                $("#effect").show(selectedEffect, options, 500, callback);
+                // $("#effect").load("/Juego/VistaParcial");
+            };
+
+            //callback function to bring a hidden box back
+            function callback() {
+                setTimeout(function () {
+                    $("#effect:visible").removeAttr("style").fadeOut();
+                }, 6000);
+            };
+
+            // Set effect from select menu value
+            $("#ranking").on("click", function () {
+                runEffect();
+            });
+
+            $("#effect").hide();
+        });
+
+
+
+
+        //funcion popup iniciar sesion
+        $(function () {
+            // run the currently selected effect
+            function runEffect() {
+                // get effect type from
+                var selectedEffect = "shake";
+
+                $("#minombre").val("");
+                // Most effect types need no options passed by default
+                var options = {};
+                // some effects have required parameters
+                if (selectedEffect === "scale") {
+                    options = { percent: 50 };
+                } else if (selectedEffect === "size") {
+                    options = { to: { width: 280, height: 185 } };
+                }
+
+                // Run the effect
+                $("#effectiniciosesion").show(selectedEffect, options, 500, callback);
+            };
+
+            //callback function to bring a hidden box back
+            function callback() {
+                setTimeout(function () {
+                    minombre = $("#minombre").val();
+                    $("#effectiniciosesion:visible").removeAttr("style").fadeOut();
+                }, 6000);
+            };
+
+            // Set effect from select menu value
+            $("#inciosesion").on("click", function () {
+                runEffect();
+            });
+
+            $("#effectiniciosesion").hide();
+        });
+
+
+
+    });
+</script>
+<pruebas>
+    @*<script>
+
+            var worker = new Worker('~/js/crearusuarios.js');
+            worker.postMessage("");
+
+
+
+
+        </script>
+
+        <script>
+            /*String saludo, int IDPaciente, String Nombre, String Apellido, int Edad, int Reloj,
+            int IDEnfermedad, String Baja, String Eliminado
+            function timedAlert(msg, timing){
+            setTimeout(function(){
+            alert(msg);
+            }, timing);
+            }
+            function yourFunction(time, counter){
+            for (var i = 1; i <= counter; i++) {
+            var msg = i, timing = i * time * 1000; //this is in seconds
+            timedAlert (msg, timing);
+            };
+            }
+            yourFunction(timeInSeconds, counter); // well here are the values of your choice.
+            setTimeout(function () {
+            alert("numero "+i);
+            setTimeout(function () {
+            alert("numero " + i);
+            $("#IDPaciente").val(i).delay(2000);
+            $("#Nombre").val(i);
+            $("#Apellido").val(i);
+            $("#Edad").val(i);
+            $("#Reloj").val(i);
+            $("#IDEnfermedad").val(i);
+            $("#Baja").val(i);
+            $("#Eliminado").val(i);
+            $("#boton").click();
+            }, 1000);
+            }, 1000);
+            */
+        </script>*@
+</pruebas>
+<form method="post" id="formulario" name="formulario" hidden>
+    @*saludo <input type="text" name="saludo" id="saludo"  /><br />*@
+    IdUsuario <input type="number" name="IdUsuario" id="IdUsuario" /><br />
+    Puntos <input type="number" name="Puntos" id="Puntos" /><br />
+    Nombre <input type="text" name="Nombre" id="Nombre" /><br />
+    Apellidos <input type="text" name="Apellidos" id="Apellidos" /><br />
+    Usuario<input type="text" name="Usuario" id="Usuario" /><br />
+    Contraseña <input type="text" name="Pass" id="Pass" /><br />
+    <button type="submit" id="boton" name="boton">enviar</button>
+</form>
+<div id='countdown2' hidden></div>
+<div id='countdown3' hidden></div>
+<input id="timer1" type="button" value="Start timer 1" hidden />
+<input id="timer2" type="button" value="Start timer 2" hidden />
+<input id="timer3" type="button" value="Start timer 3" hidden />
+<input id="detener" type="button" value="Parar relojes" hidden />
+<input id="btnmostrar" type="button" value="Mostrar pacientes asinc" hidden />
+<div class="tg-wrap">
+    <div class="table-responsive">
+        <table class="table" style="width:700px;height:900px; background-color:aliceblue;border:medium;">
+            <tbody>
+                <tr>
+                    <th class="tg-yw4l" colspan="9" width="1010px" height="70px">
+                        <div id="countdown1" align="center" style="font-size:xx-large;color:blueviolet;"></div>
+                    </th>
+                </tr>
+                <tr>
+                    <td class="tg-yw4l" rowspan="6"></td>
+                    <td class="tg-yw4l" colspan="5" rowspan="3">
+                        <div class="container">
+                            <div class="row tablero" style="background-color:antiquewhite;height:500px;width:900px;" name="tablero">
+                                <div class="toggler">
+                                    <div id="effect" class="ui-widget-content ui-corner-all">
+                                        @*<div id="divpacientes">RANKING</div>*@
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-7" id="dinamico" style="z-index:3">
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div class="row CONTROLES">
+                                <div class="col-sm-12"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l" style="text-align:right;height:70px;width:auto"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p style="font-size:xx-large;color:blueviolet;">SCORE</p>
+                        <div id="score" style="font-size:xx-large;text-align:right;color:blueviolet;">0</div>
+                    </td>
+                    <td class="tg-yw4l" rowspan="6"> </td>
+                </tr>
+                <tr> 
+                    <td class="tg-yw4l" colspan="2" rowspan="5">
+                        @*POPUPS Y BOTONES*@
+                        <input id="empezarpartida" class="btn btn-success btn-lg" type="button" value="START GAME" />
+                        <hr />
+                        <input id="multijugador" class="btn .btn-primary btn-lg" type="button" value="MultiPlayer" />
+                        <hr />
+                        <input id="ranking" class="btn .btn-primary btn-lg" type="button" value="Ranking" />
+                        <hr />
+                        <input id="inciosesion" class="btn .btn-primary btn-lg" type="button" value="Iniciar Sesion" />
+                        <hr />
+
+                        <hr />
+                        <div class="toggler">
+                            <div id="effectiniciosesion" class="ui-widget-content ui-corner-all">
+                                <h3 class="ui-widget-header ui-corner-all">Tus Datos</h3>
+                                <br />
+                                <p>
+                                    <input type="text" id="minombre" class="form-control" />
+                                </p>
+                            </div>
+                        </div>
+                        <hr />
+                        @*RANKING AQUI??*@
+                    </td>
+                </tr>
+                <tr><td class="tg-rg0h" colspan="5" align="center" style="font-size:xx-large;color:blueviolet;">MEDICINAS</td></tr>
+                <tr>
+                    <td class="tg-rg0h" colspan="5" style="text-align:center"></td>
+                </tr>
+                <tr>
+                    <td class="tg-yw4l" style="z-index:inherit" align="center">
+                        <img src="~/Imagenes/masok.jpg" id="mas1" />
+                        <div id="med1">3</div>
+                    </td>
+                    <td class="tg-yw4l" style="z-index:inherit" align="center">
+                        <img src="~/Imagenes/masok.jpg" id="mas2" />
+                        <div id="med2">3</div>
+                    </td>
+                    <td class="tg-yw4l" style="z-index:inherit" align="center">
+                        <img src="~/Imagenes/masok.jpg" id="mas3" />
+                        <div id="med3">3</div>
+                    </td>
+                    <td class="tg-yw4l" style="z-index:inherit" align="center">
+                        <img src="~/Imagenes/masok.jpg" id="mas4" />
+                        <div id="med4">3</div>
+                    </td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+                <tr class="table-bordered">
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l" id="medicina1" align="center">
+                        <img id="draggable" class="ui-widget-content ui-draggable ui-draggable-handle"
+                             style="z-index: 4; position: relative;" src="~/Imagenes/Circuloamarillo.png" />
+                    </td>
+                    <td class="tg-yw4l" id="medicina2" align="center">
+                        <img id="draggable2" class="ui-widget-content ui-draggable ui-draggable-handle"
+                             style="z-index: 4; position: relative;" src="~/Imagenes/Cuadradoamarillo.png" />
+                    </td>
+                    <td class="tg-yw4l" id="medicina3" align="center">
+                        <img id="draggable3" class="ui-widget-content ui-draggable ui-draggable-handle"
+                             style="z-index: 4; position: relative;" src="~/Imagenes/Estrellaamarilla.png" />
+                    </td>
+                    <td class="tg-yw4l" id="medicina4" align="center">
+                        <img id="draggable4" class="ui-widget-content ui-draggable ui-draggable-handle"
+                             style="z-index: 4; position: relative;" src="~/Imagenes/Trianguloamarillo.png" />
+                    </td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@*<h1> @ViewBag.saludo </h1>
+    <h1 style="color:rebeccapurple">@ViewBag.controlador</h1>*@ @*Muestra la vista parcial*@
+    @*<div>
+            @if (Model != null)
+            {
+                <ul>
+                    @foreach (var ape in Model)
+                    {
+                        <li>@ape</li>
+                    }
+                </ul>
+            }
+        </div>*@
+    @*<div id="dinamico" style="z-index:-1">
+            <div id="draggable" class="ui-widget-content" style="z-index:2">
+                <p>MEC</p>
+            </div>
+        </div>*@
+    @*<div class="container">
+            <div class="row tablero" style="background-color:antiquewhite;height:500px;width:900px;" name="tablero">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-7" id="dinamico" style="z-index:3">
+                    <div id="draggable" class="ui-widget-content" style="z-index:4">
+                        <p>MEC</p>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="row CONTROLES">
+                <div class="col-sm-12"></div>
+            </div>
+        </div>*@

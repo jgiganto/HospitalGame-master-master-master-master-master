@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModeloHOSPITALGAME.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ENFERMEDADES">
+          <Key>
+            <PropertyRef Name="IDEnfermedad" />
+          </Key>
+          <Property Name="IDEnfermedad" Type="int" Nullable="false" />
+          <Property Name="Enfermedad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dolencia" Type="nvarchar" MaxLength="50" />
+          <Property Name="Reloj" Type="int" />
+          <Property Name="Cura" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="LISTAENFERMOS">
+          <Key>
+            <PropertyRef Name="IDCaso" />
+          </Key>
+          <Property Name="IDCaso" Type="int" Nullable="false" />
+          <Property Name="IDPaciente" Type="int" />
+          <Property Name="IDEnfermedad" Type="int" />
+          <Property Name="Enfermedad" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PACIENTES">
+          <Key>
+            <PropertyRef Name="IDPaciente" />
+          </Key>
+          <Property Name="IDPaciente" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="50" />
+          <Property Name="Edad" Type="int" />
+          <Property Name="Reloj" Type="int" />
+          <Property Name="IDEnfermedad" Type="int" />
+          <Property Name="Baja" Type="nchar" MaxLength="10" />
+          <Property Name="Eliminado" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_LISTAENFERMOS_ENFERMEDADES">
+          <End Role="ENFERMEDADES" Type="Self.ENFERMEDADES" Multiplicity="0..1" />
+          <End Role="LISTAENFERMOS" Type="Self.LISTAENFERMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENFERMEDADES">
+              <PropertyRef Name="IDEnfermedad" />
+            </Principal>
+            <Dependent Role="LISTAENFERMOS">
+              <PropertyRef Name="IDEnfermedad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LISTAENFERMOS_PACIENTES">
+          <End Role="PACIENTES" Type="Self.PACIENTES" Multiplicity="0..1" />
+          <End Role="LISTAENFERMOS" Type="Self.LISTAENFERMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTES">
+              <PropertyRef Name="IDPaciente" />
+            </Principal>
+            <Dependent Role="LISTAENFERMOS">
+              <PropertyRef Name="IDPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="INSERTARPACIENTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDPaciente" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+          <Parameter Name="Apellido" Type="nvarchar" Mode="In" />
+          <Parameter Name="Edad" Type="int" Mode="In" />
+          <Parameter Name="Reloj" Type="int" Mode="In" />
+          <Parameter Name="IDEnfermedad" Type="int" Mode="In" />
+          <Parameter Name="Baja" Type="nvarchar" Mode="In" />
+          <Parameter Name="Eliminado" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModeloHOSPITALGAMEStoreContainer">
+          <EntitySet Name="ENFERMEDADES" EntityType="Self.ENFERMEDADES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LISTAENFERMOS" EntityType="Self.LISTAENFERMOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PACIENTES" EntityType="Self.PACIENTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LISTAENFERMOS_ENFERMEDADES" Association="Self.FK_LISTAENFERMOS_ENFERMEDADES">
+            <End Role="ENFERMEDADES" EntitySet="ENFERMEDADES" />
+            <End Role="LISTAENFERMOS" EntitySet="LISTAENFERMOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LISTAENFERMOS_PACIENTES" Association="Self.FK_LISTAENFERMOS_PACIENTES">
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+            <End Role="LISTAENFERMOS" EntitySet="LISTAENFERMOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModeloHOSPITALGAME" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ENFERMEDADES">
+          <Key>
+            <PropertyRef Name="IDEnfermedad" />
+          </Key>
+          <Property Name="IDEnfermedad" Type="Int32" Nullable="false" />
+          <Property Name="Enfermedad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dolencia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Reloj" Type="Int32" />
+          <Property Name="Cura" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LISTAENFERMOS" Relationship="Self.FK_LISTAENFERMOS_ENFERMEDADES" FromRole="ENFERMEDADES" ToRole="LISTAENFERMOS" />
+        </EntityType>
+        <EntityType Name="LISTAENFERMOS">
+          <Key>
+            <PropertyRef Name="IDCaso" />
+          </Key>
+          <Property Name="IDCaso" Type="Int32" Nullable="false" />
+          <Property Name="IDPaciente" Type="Int32" />
+          <Property Name="IDEnfermedad" Type="Int32" />
+          <Property Name="Enfermedad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ENFERMEDADES" Relationship="Self.FK_LISTAENFERMOS_ENFERMEDADES" FromRole="LISTAENFERMOS" ToRole="ENFERMEDADES" />
+          <NavigationProperty Name="PACIENTES" Relationship="Self.FK_LISTAENFERMOS_PACIENTES" FromRole="LISTAENFERMOS" ToRole="PACIENTES" />
+        </EntityType>
+        <EntityType Name="PACIENTES">
+          <Key>
+            <PropertyRef Name="IDPaciente" />
+          </Key>
+          <Property Name="IDPaciente" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Edad" Type="Int32" />
+          <Property Name="Reloj" Type="Int32" />
+          <Property Name="IDEnfermedad" Type="Int32" />
+          <Property Name="Baja" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Eliminado" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="LISTAENFERMOS" Relationship="Self.FK_LISTAENFERMOS_PACIENTES" FromRole="PACIENTES" ToRole="LISTAENFERMOS" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_LISTAENFERMOS_ENFERMEDADES">
+          <End Role="ENFERMEDADES" Type="Self.ENFERMEDADES" Multiplicity="0..1" />
+          <End Role="LISTAENFERMOS" Type="Self.LISTAENFERMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENFERMEDADES">
+              <PropertyRef Name="IDEnfermedad" />
+            </Principal>
+            <Dependent Role="LISTAENFERMOS">
+              <PropertyRef Name="IDEnfermedad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LISTAENFERMOS_PACIENTES">
+          <End Role="PACIENTES" Type="Self.PACIENTES" Multiplicity="0..1" />
+          <End Role="LISTAENFERMOS" Type="Self.LISTAENFERMOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTES">
+              <PropertyRef Name="IDPaciente" />
+            </Principal>
+            <Dependent Role="LISTAENFERMOS">
+              <PropertyRef Name="IDPaciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContextoHospitalGame" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ENFERMEDADES" EntityType="Self.ENFERMEDADES" />
+          <EntitySet Name="LISTAENFERMOS" EntityType="Self.LISTAENFERMOS" />
+          <EntitySet Name="PACIENTES" EntityType="Self.PACIENTES" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_LISTAENFERMOS_ENFERMEDADES" Association="Self.FK_LISTAENFERMOS_ENFERMEDADES">
+            <End Role="ENFERMEDADES" EntitySet="ENFERMEDADES" />
+            <End Role="LISTAENFERMOS" EntitySet="LISTAENFERMOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LISTAENFERMOS_PACIENTES" Association="Self.FK_LISTAENFERMOS_PACIENTES">
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+            <End Role="LISTAENFERMOS" EntitySet="LISTAENFERMOS" />
+          </AssociationSet>
+          <FunctionImport Name="INSERTARPACIENTES">
+            <Parameter Name="IDPaciente" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Apellido" Mode="In" Type="String" />
+            <Parameter Name="Edad" Mode="In" Type="Int32" />
+            <Parameter Name="Reloj" Mode="In" Type="Int32" />
+            <Parameter Name="IDEnfermedad" Mode="In" Type="Int32" />
+            <Parameter Name="Baja" Mode="In" Type="String" />
+            <Parameter Name="Eliminado" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModeloHOSPITALGAMEStoreContainer" CdmEntityContainer="ContextoHospitalGame">
+          <EntitySetMapping Name="ENFERMEDADES">
+            <EntityTypeMapping TypeName="ModeloHOSPITALGAME.ENFERMEDADES">
+              <MappingFragment StoreEntitySet="ENFERMEDADES">
+                <ScalarProperty Name="IDEnfermedad" ColumnName="IDEnfermedad" />
+                <ScalarProperty Name="Enfermedad" ColumnName="Enfermedad" />
+                <ScalarProperty Name="Dolencia" ColumnName="Dolencia" />
+                <ScalarProperty Name="Reloj" ColumnName="Reloj" />
+                <ScalarProperty Name="Cura" ColumnName="Cura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LISTAENFERMOS">
+            <EntityTypeMapping TypeName="ModeloHOSPITALGAME.LISTAENFERMOS">
+              <MappingFragment StoreEntitySet="LISTAENFERMOS">
+                <ScalarProperty Name="IDCaso" ColumnName="IDCaso" />
+                <ScalarProperty Name="IDPaciente" ColumnName="IDPaciente" />
+                <ScalarProperty Name="IDEnfermedad" ColumnName="IDEnfermedad" />
+                <ScalarProperty Name="Enfermedad" ColumnName="Enfermedad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACIENTES">
+            <EntityTypeMapping TypeName="ModeloHOSPITALGAME.PACIENTES">
+              <MappingFragment StoreEntitySet="PACIENTES">
+                <ScalarProperty Name="IDPaciente" ColumnName="IDPaciente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Reloj" ColumnName="Reloj" />
+                <ScalarProperty Name="IDEnfermedad" ColumnName="IDEnfermedad" />
+                <ScalarProperty Name="Baja" ColumnName="Baja" />
+                <ScalarProperty Name="Eliminado" ColumnName="Eliminado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ModeloHOSPITALGAME.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="INSERTARPACIENTES" FunctionName="ModeloHOSPITALGAME.Store.INSERTARPACIENTES" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
